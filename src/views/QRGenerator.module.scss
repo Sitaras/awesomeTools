@@ -1,0 +1,16 @@
+@use "sass:math";
+@use "../styles/utils" as *;
+
+.urlsMultilineInput {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.tableContainer{
+  flex: 1;
+}
+
+.submitButton{
+  max-width: rem(256);
+}

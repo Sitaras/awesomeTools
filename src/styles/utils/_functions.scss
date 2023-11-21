@@ -1,0 +1,23 @@
+@use 'sass:list';
+@use 'sass:math';
+$rem-base: 16 !default;
+
+@function strip-unit($num) {
+  @return math.div($num, ($num * 0 + 1));
+}
+
+@function rem($pixels) {
+  $rem-vals: ();
+  @each $val in $pixels {
+    $val-in-rems: math.div(strip-unit($val), $rem-base) * 1rem;
+    $rem-vals: list.append($rem-vals, $val-in-rems);
+  }
+
+  @if list.length($rem-vals) == 1 {
+    // return a single value instead of a list,
+    // so it can be used in calculations
+    @return list.nth($rem-vals, 1);
+  } @else {
+    @return $rem-vals;
+  }
+}

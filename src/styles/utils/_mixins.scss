@@ -1,0 +1,45 @@
+@use 'variables' as *;
+
+@mixin text(
+  $color: $black,
+  $size: $font-size-s,
+  $lh: $line-height-s,
+  $weight: $font-regular,
+  $text-align: left
+) {
+  color: $color;
+  font-size: $size;
+  line-height: $lh;
+  font-weight: $weight;
+  text-align: $text-align;
+}
+
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin phone-only {
+  @media (max-width: $phone-max) {
+    @content;
+  }
+}
+
+@mixin tablet-portrait-up {
+  @media (min-width: $tablet-portrait-min) {
+    @content;
+  }
+}
+
+@mixin tablet-landscape-up {
+  @media (min-width: $tablet-landscape-min) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: $desktop-min) {
+    @content;
+  }
+}

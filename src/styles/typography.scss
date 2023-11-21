@@ -1,0 +1,55 @@
+@use './utils/mixins' as *;
+@use './utils/variables' as *;
+@use './utils/functions' as *;
+
+
+%title-3xl {
+  @include text(
+    $white,
+    $title-font-size-l,
+    $title-line-height-l,
+    $title-font-medium,
+    left
+  );
+
+  @include tablet-landscape-up {
+    @include text(
+      $white,
+      $title-font-size-3xl,
+      $title-line-height-3xl,
+      $title-font-medium,
+      left
+    );
+  }
+}
+
+%h1 {
+  margin: 0;
+  color: $white;
+  font-size: $title-font-size-2xl;
+  font-weight: bold;
+  line-height: rem(48);
+
+  @include tablet-landscape-up {
+    font-size: rem(32);
+    line-height: rem(40);
+  }
+}
+
+%h2 {
+  margin: 0;
+  @extend %title-3xl;
+}
+
+%h3 {
+  margin: 0;
+  font-size: rem(20);
+  font-weight: bold;
+  line-height: rem(24);
+}
+
+%h4 {
+  font-size: rem(18);
+  font-weight: medium;
+  line-height: rem(22);
+}

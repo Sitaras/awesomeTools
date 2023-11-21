@@ -1,0 +1,17 @@
+@use "sass:math";
+@use "../styles/utils" as *;
+
+.contentContainer {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: rem(32);
+  align-items: center;
+
+  @include desktop-up {
+    flex-direction: row;
+    
+  }
+}

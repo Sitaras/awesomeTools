@@ -1,0 +1,89 @@
+@use 'functions' as *;
+
+/* Color Pallette */
+$primary: #61dafb;
+$secondary: #ff6600;
+$button-hover:#358bbd;
+$bg-color:#282c34;
+
+// Action
+$action: #fff;
+
+// Status
+$success: #429488;
+$danger: #b1474a;
+$warning: #f49427;
+$info: #3e559b;
+
+// surfaces
+$surface-primary: #ffffff;
+$surface-bg: #f9f9f9;
+
+// Greyscale
+$gray: #edf2f5;
+$gray-medium: #717378;
+$gray-transparent: #786c6580;
+$black: #181818;
+$white: #fff;
+
+/* Typography */
+$font-size-xs: rem(12);
+$font-size-s: rem(14);
+$font-size-m: rem(16);
+$font-size-l: rem(18);
+$font-size-xl: rem(20);
+$font-size-2xl: rem(24);
+$font-size-3xl: rem(32);
+$font-size-4xl: rem(44);
+$font-size-5xl: rem(72);
+
+$line-height-xs: rem(16);
+$line-height-s: rem(18);
+$line-height-m: rem(20);
+$line-height-l: rem(22);
+$line-height-xl: rem(24);
+$line-height-xxl: rem(26);
+$line-height-2xl: rem(28);
+$line-height-3xl: rem(38);
+$line-height-4xl: rem(52);
+$line-height-5xl: rem(86);
+
+$font-regular: 400;
+$font-medium: 600;
+$font-bold: 700;
+
+/* Title Typography */
+$title-font-size-m: rem(24);
+$title-font-size-l: rem(30);
+$title-font-size-xl: rem(40);
+$title-font-size-2xl: rem(48);
+$title-font-size-3xl: rem(50);
+
+$title-line-height-m: rem(30);
+$title-line-height-l: rem(40);
+$title-line-height-xl: rem(48);
+$title-line-height-2xl: rem(50);
+$title-line-height-3xl: rem(60);
+
+$title-font-medium: 600;
+$title-font-bold: 800;
+
+/* Useful sizes */
+$gutter: rem(16);
+$max-width: rem(940);
+$max-home-width: rem(1200);
+$header-height: rem(102);
+$header-height-mobile: rem(72);
+$content-max-width: rem(600);
+
+/* z-indexes */
+$header-z-index: 99;
+
+/* media query variables */
+$phone-max: 599px;
+$tablet-portrait-min: 600px;
+$tablet-landscape-min: 940px;
+$desktop-min: 1200px;
+
+$home-distance: rem(116);
+$home-distance-mobile: rem(48);
