@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import QRGenerator from "views/QRGenerator";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <QRGenerator />,

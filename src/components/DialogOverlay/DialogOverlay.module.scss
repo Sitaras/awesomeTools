@@ -1,0 +1,83 @@
+@use '../../styles/utils' as *;
+
+.dialog {
+  padding: rem(16);
+  width: rem(470);
+  max-width: calc(100% - 2rem);
+  margin: rem(16) 0;
+
+  @include tablet-portrait-up {
+    padding: rem(24);
+    margin: rem(24) 0;
+  }
+}
+
+.dialogTitle {
+  position: relative;
+  min-height: rem(24);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: visible;
+  margin: 0 0 rem(24);
+  padding: rem(12) 0;
+  @include phone-only {
+    padding: rem(16) 0;
+  }
+}
+
+.backButton {
+  padding: 0;
+  width: rem(24);
+  height: rem(24);
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+}
+
+.header {
+  flex: 1 0 rem(200);
+  @include text($white, $font-size-m, $line-height-m, $font-bold, center);
+  margin: 0;
+  align-self: center;
+}
+
+.closeButton {
+  padding: 0;
+  width: rem(32);
+  height: rem(32);
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+}
+
+.dialogContent {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+%actions {
+  flex: 0 0 rem(40);
+  display: flex;
+  gap: rem(16);
+  padding: rem(32) 0 0;
+}
+
+.dialogActions {
+  @extend %actions;
+  justify-content: center;
+}
+
+.dialogActions-right {
+  @extend %actions;
+  justify-content: flex-end;
+}

@@ -6,7 +6,6 @@ import { theme } from "utils/materialTheme.jsx";
 import Router from "utils/Router";
 import "./styles/globals.scss";
 import GlobalLayout from "containers/GlobalLayout";
-import "./utils/i18n";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

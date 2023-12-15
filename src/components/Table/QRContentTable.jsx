@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableHead,
@@ -12,11 +12,15 @@ import { IconButton } from "components/Buttons/Buttons";
 import UndoIcon from "@mui/icons-material/Undo";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import PreviewIcon from "@mui/icons-material/Preview";
-
+import DialogOverlay from "components/DialogOverlay/DialogOverlay";
+import useDialog from "hooks/useDialog";
 import { StandardDropDown } from "components/DropDown/DropDowns";
 
 const QRContentTable = ({ rows, handleRows, tableStyles }) => {
-  const [previous, setPrevious] = React.useState({});
+  const qrViewDialog = useDialog();
+  const [qrView, setQrView] = useState("");
+
+  const [previous, setPrevious] = useState({});
 
   const onRevert = (id) => {
     const newRows = rows.map((row) => {
@@ -52,65 +56,84 @@ const QRContentTable = ({ rows, handleRows, tableStyles }) => {
 
   const handleChangeCell = (row) => (e) => handleChangeRow(e, row);
 
+  const handleQrPreview = (row) => (e) => {
+    console.log(row?.file);
+    setQrView(row?.file);
+    qrViewDialog.show();
+  };
+
   return (
-    <TableContainer className={tableStyles}>
-      <Table aria-label="caption table" stickyHeader>
-        <TableHead>
-          <TableRow>
-            <TableCell align="left" />
-            <TableCell align="left">Filename</TableCell>
-            <TableCell align="left">Extension</TableCell>
-            <TableCell align="left">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows?.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>
-                <IconButton
-                  aria-label="undo"
-                  onClick={() => onRevert(row.id)}
-                  disabled={!row.canBeReverted}
-                >
-                  <UndoIcon />
-                </IconButton>
-              </TableCell>
-              <TableCell align="left">
-                <Input
-                  name="fileName"
-                  variant="standard"
-                  value={row.fileName}
-                  onChange={handleChangeCell(row)}
-                />
-              </TableCell>
-              <TableCell align="left">
-                <StandardDropDown
-                  size="small"
-                  value={row.extension}
-                  name="extension"
-                  label={"select image format"}
-                  handleChange={handleChangeCell(row)}
-                  options={[
-                    { value: "svg", name: "svg" },
-                    { value: "png", name: "png" },
-                    { value: "jpeg", name: "jpeg" },
-                  ]}
-                />
-              </TableCell>
-              {/* add drop down at the above one */}
-              <TableCell align="left">
-                <IconButton aria-label="saveAs" onClick={() => {}}>
-                  <SaveAsIcon />
-                </IconButton>
-                <IconButton aria-label="preview" onClick={() => {}}>
-                  <PreviewIcon />
-                </IconButton>
-              </TableCell>
+    <>
+      <TableContainer className={tableStyles}>
+        <Table aria-label="caption table" stickyHeader>
+          <TableHead>
+            <TableRow>
+              <TableCell align="left" />
+              <TableCell align="left">Filename</TableCell>
+              <TableCell align="left">Extension</TableCell>
+              <TableCell align="left">Actions</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows?.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>
+                  <IconButton
+                    aria-label="undo"
+                    onClick={() => onRevert(row.id)}
+                    disabled={!row.canBeReverted}
+                  >
+                    <UndoIcon />
+                  </IconButton>
+                </TableCell>
+                <TableCell align="left">
+                  <Input
+                    name="fileName"
+                    variant="standard"
+                    value={row.fileName}
+                    onChange={handleChangeCell(row)}
+                  />
+                </TableCell>
+                <TableCell align="left">
+                  <StandardDropDown
+                    size="small"
+                    value={row.extension}
+                    name="extension"
+                    label={"select image format"}
+                    handleChange={handleChangeCell(row)}
+                    options={[
+                      { value: "svg", name: "svg" },
+                      { value: "png", name: "png" },
+                      { value: "jpeg", name: "jpeg" },
+                    ]}
+                  />
+                </TableCell>
+                {/* add drop down at the above one */}
+                <TableCell align="left">
+                  <IconButton aria-label="saveAs" onClick={() => {}}>
+                    <SaveAsIcon />
+                  </IconButton>
+                  <IconButton
+                    aria-label="preview"
+                    onClick={handleQrPreview(row)}
+                  >
+                    <PreviewIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <DialogOverlay
+        open={qrViewDialog.isOpen}
+        closeDialog={qrViewDialog.close}
+        dialogHeader="QR Preview"
+        scroll="body"
+      >
+        <img src={qrView} alt="qr" />
+      </DialogOverlay>
+    </>
   );
 };
 

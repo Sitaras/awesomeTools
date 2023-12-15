@@ -15,9 +15,11 @@ function createWindow() {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      ...(isDev && { webSecurity: false }),
     },
   });
-  mainWindow.webContents.openDevTools();
+
+  isDev && mainWindow.webContents.openDevTools();
 
   mainWindow.loadURL(
     isDev
@@ -28,15 +30,15 @@ function createWindow() {
   mainWindow.on("closed", () => (mainWindow = null));
 }
 
-const historyDir = path.join(__dirname, "/QRsHistory");
+const historyDirName = "QRsHistory";
 
 app.whenReady().then(() => {
   ipcMain.handle("storage", () => store.get("unicorn"));
 
   createWindow();
 
-  if (!fs.existsSync(historyDir)) {
-    fs.mkdirSync(historyDir);
+  if (!fs.existsSync(historyDirName)) {
+    fs.mkdirSync(historyDirName);
   }
 
   app.on("activate", () => {
@@ -45,39 +47,46 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", () => {
-  fs.rmSync(historyDir, { recursive: true, force: true });
+  fs.rmSync(historyDirName, { recursive: true, force: true });
   if (process.platform !== "darwin") app.quit();
 });
 
-ipcMain.on("toMain", (event, args) => {
-  console.log("ping");
-  store.set("unicorn", "😱");
-  mainWindow.webContents.send("fromMain", store.get("unicorn"));
-
+ipcMain.on("convertUrlsToQRs", (event, urlsArray) => {
   const dirName = Date.now() + "";
+  const storagePath = `${historyDirName}/${dirName}`;
 
-  if (!fs.existsSync(dirName)) {
-    fs.mkdirSync(dirName);
+  if (!fs.existsSync(storagePath)) {
+    fs.mkdirSync(storagePath);
   }
 
-  QRCode.toString(
-    "https://myclub.public.gr/user-connection?storeCode=PBL_ONBOARDING_SHOP_7050",
-    { type: "svg" },
-    function (err, url) {
-      console.log(url);
-      fs.writeFile(path.join(__dirname, "/test.svg"), url, function (err) {
+  const extension = "svg";
+
+  const qrData = urlsArray?.map((url) => {
+    const urlFilename = url?.replace(/^https?:\/\//, "")?.replaceAll("/", "_");
+    const savedPath = `${storagePath}/${urlFilename}.${extension}`;
+
+    QRCode.toString(url, { type: extension }, function (err, urlData) {
+      fs.writeFile(savedPath, urlData, function (err) {
         if (err) {
           return console.log(err);
         }
-        console.log("The file was saved!");
       });
-    }
-  );
+    });
 
+    return {
+      id: url,
+      file: "file://" + path.resolve(savedPath),
+      fileName: urlFilename,
+      extension: extension,
+    };
+  });
+
+  // console.log(qrData);
+
+  mainWindow.webContents.send("qrData", qrData);
   //   fs.readFile("path/to/file", (error, data) => {
   //     // Do something with file contents
 
   //     // Send result back to renderer process
-  //     mainWindow.webContents.send("fromMain", responseObj);
   //   });
 });

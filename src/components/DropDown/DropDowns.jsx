@@ -2,7 +2,12 @@ import React from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-const StandardDropDown = ({ label = "", options, handleChange, ...restProps }) => {
+const StandardDropDown = ({
+  label = "",
+  options,
+  handleChange,
+  ...restProps
+}) => {
   return (
     <Select
       labelId={`select-${label}`}
@@ -11,7 +16,9 @@ const StandardDropDown = ({ label = "", options, handleChange, ...restProps }) =
       {...restProps}
     >
       {options?.map((option) => (
-        <MenuItem value={option.value}>{option.name}</MenuItem>
+        <MenuItem key={option.value} value={option.value}>
+          {option.name}
+        </MenuItem>
       ))}
     </Select>
   );

@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import get from "lodash/get";
 import { StandardInput } from "./Inputs";
 import { isEmptyString } from "utils/stringUtils";
@@ -12,15 +11,13 @@ const TextInput = ({
   name = "text",
   ...rest
 }) => {
-  const { t } = useTranslation("inputs");
-  const baseName = "errors";
   const { ref, ...registerRest } =
     register(name, {
-      required: { value: required, message: t(`${baseName}.required`) },
+      required: { value: required, message: "This field is required." },
       validate: {
         emptyString: (value) => {
           if (!required) return true;
-          return isEmptyString(value) ? t(`${baseName}.required`) : true;
+          return isEmptyString(value) ? "This field is invalid." : true;
         },
       },
     }) || {};
