@@ -5,6 +5,7 @@ import { PrimaryButton } from "components/Buttons/Buttons";
 import { useForm } from "react-hook-form";
 import { tableDataTransformer } from "utils/stringUtils";
 import QRContentTable from "components/Table/QRContentTable";
+import { SecondaryButton } from "components/Buttons/Buttons";
 
 import styles from "./QRGenerator.module.scss";
 
@@ -42,11 +43,16 @@ const QRGenerator = () => {
       >
         Generate
       </PrimaryButton>
-      <QRContentTable
-        rows={qrData}
-        handleRows={setQrData}
-        tableStyles={styles.tableContainer}
-      />
+      <div className={styles.container}>
+        <QRContentTable
+          rows={qrData}
+          handleRows={setQrData}
+          tableStyles={styles.tableInnerContainer}
+        />
+        <SecondaryButton className={styles.saveAsButton} onClick={() => {}}>
+          Save as all
+        </SecondaryButton>
+      </div>
     </QRGeneratorLayout>
   );
 };

@@ -3,8 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const Store = require("electron-store");
 var QRCode = require("qrcode");
-
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 
 let mainWindow;
 const store = new Store();
@@ -30,7 +29,7 @@ function createWindow() {
   mainWindow.on("closed", () => (mainWindow = null));
 }
 
-const historyDirName = "QRsHistory";
+const historyDirName = `${app.getPath("appData")}/QRsHistory`;
 
 app.whenReady().then(() => {
   ipcMain.handle("storage", () => store.get("unicorn"));
@@ -61,32 +60,48 @@ ipcMain.on("convertUrlsToQRs", (event, urlsArray) => {
 
   const extension = "svg";
 
-  const qrData = urlsArray?.map((url) => {
-    const urlFilename = url?.replace(/^https?:\/\//, "")?.replaceAll("/", "_");
-    const savedPath = `${storagePath}/${urlFilename}.${extension}`;
+  const qrData = urlsArray
+    ?.filter((url) => !!url)
+    ?.map((url) => {
+      const urlFilename = url
+        ?.replace(/^https?:\/\//, "")
+        ?.replaceAll("/", "_");
+      const savedPath = `${storagePath}/${urlFilename}.${extension}`;
 
-    QRCode.toString(url, { type: extension }, function (err, urlData) {
-      fs.writeFile(savedPath, urlData, function (err) {
-        if (err) {
-          return console.log(err);
-        }
+      QRCode.toFile(savedPath, url, { type: extension }, function (err) {
+        if (err) throw err;
       });
+
+      return {
+        id: `${url}${Date.now()}`,
+        file: path.resolve(savedPath),
+        fileName: urlFilename,
+        extension: extension,
+      };
     });
 
-    return {
-      id: url,
-      file: "file://" + path.resolve(savedPath),
-      fileName: urlFilename,
-      extension: extension,
-    };
-  });
-
-  // console.log(qrData);
-
   mainWindow.webContents.send("qrData", qrData);
-  //   fs.readFile("path/to/file", (error, data) => {
-  //     // Do something with file contents
+});
 
-  //     // Send result back to renderer process
-  //   });
+ipcMain.on("saveQRfile", (event, fileData) => {
+  const options = {
+    title: "Save QR",
+    defaultPath: app.getPath("documents"),
+    filters: [
+      {
+        name: fileData?.fileName,
+        extensions: [fileData?.extension],
+      },
+    ],
+  };
+
+  dialog
+    .showSaveDialog(mainWindow, options)
+    .then(({ filePath }) => {
+      if (!filePath) return;
+      const origin = fs.createReadStream(fileData?.file, { flags: "r" });
+      const destination = fs.createWriteStream(filePath, { flags: "w+" });
+      origin.pipe(destination);
+    })
+    .catch((err) => {});
 });

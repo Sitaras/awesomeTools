@@ -7,10 +7,21 @@
   width: 100%;
 }
 
-.tableContainer{
-  flex: 1;
+.submitButton {
+  max-width: rem(256);
+  align-self: center;
 }
 
-.submitButton{
-  max-width: rem(256);
+.container {
+  flex: 1;
+  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+}
+
+.saveAsButton {
+  max-width: rem(212);
+  align-self: flex-end;
 }

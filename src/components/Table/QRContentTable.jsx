@@ -16,7 +16,9 @@ import DialogOverlay from "components/DialogOverlay/DialogOverlay";
 import useDialog from "hooks/useDialog";
 import { StandardDropDown } from "components/DropDown/DropDowns";
 
-const QRContentTable = ({ rows, handleRows, tableStyles }) => {
+import styles from "./QRContentTable.module.scss";
+
+const QRContentTable = ({ rows, handleRows }) => {
   const qrViewDialog = useDialog();
   const [qrView, setQrView] = useState("");
 
@@ -46,7 +48,8 @@ const QRContentTable = ({ rows, handleRows, tableStyles }) => {
 
     const newRows = rows.map((row) => {
       if (row.id === id) {
-        return { ...row, [name]: value, canBeReverted: true };
+        const hasChanged = previous[row.id]?.[name] !== value;
+        return { ...row, [name]: value, canBeReverted: hasChanged };
       }
       return row;
     });
@@ -57,14 +60,18 @@ const QRContentTable = ({ rows, handleRows, tableStyles }) => {
   const handleChangeCell = (row) => (e) => handleChangeRow(e, row);
 
   const handleQrPreview = (row) => (e) => {
-    console.log(row?.file);
-    setQrView(row?.file);
+    setQrView(`file://${row?.file}`);
     qrViewDialog.show();
+  };
+
+  const handleSaveAs = (row) => (e) => {
+    console.log("save as");
+    window.api.send("saveQRfile", row);
   };
 
   return (
     <>
-      <TableContainer className={tableStyles}>
+      <TableContainer>
         <Table aria-label="caption table" stickyHeader>
           <TableHead>
             <TableRow>
@@ -79,6 +86,7 @@ const QRContentTable = ({ rows, handleRows, tableStyles }) => {
               <TableRow key={row.id}>
                 <TableCell>
                   <IconButton
+                    className={!row.canBeReverted ? styles["gray-fill"] : ""}
                     aria-label="undo"
                     onClick={() => onRevert(row.id)}
                     disabled={!row.canBeReverted}
@@ -111,7 +119,10 @@ const QRContentTable = ({ rows, handleRows, tableStyles }) => {
                 {/* add drop down at the above one */}
                 <TableCell align="left">
                   <IconButton aria-label="saveAs" onClick={() => {}}>
-                    <SaveAsIcon />
+                    <SaveAsIcon
+                      aria-label="saveAs"
+                      onClick={handleSaveAs(row)}
+                    />
                   </IconButton>
                   <IconButton
                     aria-label="preview"

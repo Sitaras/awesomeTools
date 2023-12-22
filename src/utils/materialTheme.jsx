@@ -90,7 +90,6 @@ const theme = createTheme({
     MuiTableContainer: {
       styleOverrides: {
         root: {
-          height: "100%",
           color: colors.action,
         },
       },

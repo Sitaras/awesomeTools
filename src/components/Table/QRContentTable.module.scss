@@ -1,0 +1,17 @@
+@use "../../styles/utils" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: rem(32);
+  width: 100%;
+  flex: 1;
+}
+
+.gray-fill {
+  svg {
+    path {
+      fill: $gray-medium;
+    }
+  }
+}
