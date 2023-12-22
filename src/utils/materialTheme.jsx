@@ -48,7 +48,6 @@ const theme = createTheme({
           alignItems: "start",
         },
         input: {
-          height: "100% !important",
           overflow: "auto !important",
         },
         notchedOutline: {

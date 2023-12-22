@@ -22,8 +22,10 @@ const QRGenerator = () => {
 
   const [qrData, setQrData] = useState();
 
+  const displaySaveAsAllButton = qrData?.length > 1;
+
   const handleUrlsSubmit = ({ URLs }) => {
-    const urlsArray = URLs.split("\n");
+    const urlsArray = [...new Set(URLs.split("\n"))];
     window.api.send("convertUrlsToQRs", urlsArray);
   };
 
@@ -49,9 +51,11 @@ const QRGenerator = () => {
           handleRows={setQrData}
           tableStyles={styles.tableInnerContainer}
         />
-        <SecondaryButton className={styles.saveAsButton} onClick={() => {}}>
-          Save as all
-        </SecondaryButton>
+        {displaySaveAsAllButton && (
+          <SecondaryButton className={styles.saveAsButton} onClick={() => {}}>
+            Save as all
+          </SecondaryButton>
+        )}
       </div>
     </QRGeneratorLayout>
   );

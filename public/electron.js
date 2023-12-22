@@ -4,6 +4,7 @@ const fs = require("fs");
 const Store = require("electron-store");
 var QRCode = require("qrcode");
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+var { imageConverter } = require("./utils");
 
 let mainWindow;
 const store = new Store();
@@ -73,7 +74,7 @@ ipcMain.on("convertUrlsToQRs", (event, urlsArray) => {
       });
 
       return {
-        id: `${url}${Date.now()}`,
+        id: `${url}-${Date.now()}`,
         file: path.resolve(savedPath),
         fileName: urlFilename,
         extension: extension,
@@ -86,7 +87,7 @@ ipcMain.on("convertUrlsToQRs", (event, urlsArray) => {
 ipcMain.on("saveQRfile", (event, fileData) => {
   const options = {
     title: "Save QR",
-    defaultPath: app.getPath("documents"),
+    defaultPath: app.getPath("documents") + "/" + fileData?.fileName,
     filters: [
       {
         name: fileData?.fileName,
@@ -99,9 +100,16 @@ ipcMain.on("saveQRfile", (event, fileData) => {
     .showSaveDialog(mainWindow, options)
     .then(({ filePath }) => {
       if (!filePath) return;
-      const origin = fs.createReadStream(fileData?.file, { flags: "r" });
-      const destination = fs.createWriteStream(filePath, { flags: "w+" });
-      origin.pipe(destination);
+      return imageConverter(
+        fs.readFileSync(fileData?.file),
+        fileData?.extension,
+        fileData?.width,
+        fileData?.height
+      ).then((data) => {
+        fs.writeFileSync(filePath, data);
+      });
     })
-    .catch((err) => {});
+    .catch((err) => {
+      console.log(err);
+    });
 });

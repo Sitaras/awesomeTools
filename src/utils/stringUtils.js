@@ -14,6 +14,8 @@ const tableDataTransformer = (data) => {
     fileName: entry?.fileName,
     extension: entry?.extension,
     canBeReverted: false,
+    height: 350,
+    width: 350,
   }));
 };
 

@@ -6,8 +6,8 @@ import {
   TableRow,
   TableBody,
   TableContainer,
+  TextField,
 } from "@mui/material";
-import { Input } from "@mui/material";
 import { IconButton } from "components/Buttons/Buttons";
 import UndoIcon from "@mui/icons-material/Undo";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
@@ -15,6 +15,7 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import DialogOverlay from "components/DialogOverlay/DialogOverlay";
 import useDialog from "hooks/useDialog";
 import { StandardDropDown } from "components/DropDown/DropDowns";
+import { hasEqualObjectValues } from "utils/objectUtils";
 
 import styles from "./QRContentTable.module.scss";
 
@@ -38,18 +39,36 @@ const QRContentTable = ({ rows, handleRows }) => {
     });
   };
 
+  const transformDimensionsInput = (value) => {
+    const maximumImageSize = 65535;
+
+    if (isNaN(value)) return 0;
+
+    if (value > maximumImageSize) return maximumImageSize;
+
+    if (value < 0 || value === "-") return 0;
+
+    return value;
+  };
+
   const handleChangeRow = (e, row) => {
     if (!previous[row.id]) {
       setPrevious((_prev) => ({ ..._prev, [row.id]: row }));
     }
-    const value = e.target.value;
+
     const name = e.target.name;
+    const value =
+      name === "width" || name === "height"
+        ? transformDimensionsInput(e.target.value)
+        : e.target.value;
     const { id } = row;
 
     const newRows = rows.map((row) => {
       if (row.id === id) {
-        const hasChanged = previous[row.id]?.[name] !== value;
-        return { ...row, [name]: value, canBeReverted: hasChanged };
+        const canBeReverted =
+          previous[row.id]?.[name] !== value ||
+          !hasEqualObjectValues(row, previous[row.id]);
+        return { ...row, [name]: value, canBeReverted };
       }
       return row;
     });
@@ -65,9 +84,10 @@ const QRContentTable = ({ rows, handleRows }) => {
   };
 
   const handleSaveAs = (row) => (e) => {
-    console.log("save as");
     window.api.send("saveQRfile", row);
   };
+
+  const showDimensionsColumn = rows?.some((row) => row.extension !== "svg");
 
   return (
     <>
@@ -78,6 +98,9 @@ const QRContentTable = ({ rows, handleRows }) => {
               <TableCell align="left" />
               <TableCell align="left">Filename</TableCell>
               <TableCell align="left">Extension</TableCell>
+              {showDimensionsColumn && (
+                <TableCell align="left">Dimensions</TableCell>
+              )}
               <TableCell align="left">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -95,7 +118,7 @@ const QRContentTable = ({ rows, handleRows }) => {
                   </IconButton>
                 </TableCell>
                 <TableCell align="left">
-                  <Input
+                  <TextField
                     name="fileName"
                     variant="standard"
                     value={row.fileName}
@@ -113,10 +136,33 @@ const QRContentTable = ({ rows, handleRows }) => {
                       { value: "svg", name: "svg" },
                       { value: "png", name: "png" },
                       { value: "jpeg", name: "jpeg" },
+                      { value: "webp", name: "webp" },
+                      { value: "tiff", name: "tiff" },
                     ]}
                   />
                 </TableCell>
-                {/* add drop down at the above one */}
+                {showDimensionsColumn && (
+                  <TableCell align="justify">
+                    {row.extension !== "svg" && (
+                      <div className={styles.dimensionsContainer}>
+                        <TextField
+                          name="height"
+                          variant="outlined"
+                          size="small"
+                          value={row?.height}
+                          onChange={handleChangeCell(row)}
+                        />
+                        <TextField
+                          name="width"
+                          variant="outlined"
+                          size="small"
+                          value={row?.width}
+                          onChange={handleChangeCell(row)}
+                        />
+                      </div>
+                    )}
+                  </TableCell>
+                )}
                 <TableCell align="left">
                   <IconButton aria-label="saveAs" onClick={() => {}}>
                     <SaveAsIcon
