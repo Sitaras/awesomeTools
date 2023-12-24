@@ -29,6 +29,10 @@ const QRGenerator = () => {
     window.api.send("convertUrlsToQRs", urlsArray);
   };
 
+  const handleSaveAsAll = () => {
+    window.api.send("saveQRfilesFolder", qrData);
+  };
+
   return (
     <QRGeneratorLayout>
       <TextInput
@@ -52,7 +56,10 @@ const QRGenerator = () => {
           tableStyles={styles.tableInnerContainer}
         />
         {displaySaveAsAllButton && (
-          <SecondaryButton className={styles.saveAsButton} onClick={() => {}}>
+          <SecondaryButton
+            className={styles.saveAsButton}
+            onClick={handleSaveAsAll}
+          >
             Save as all
           </SecondaryButton>
         )}

@@ -4,13 +4,17 @@ const { contextBridge, ipcRenderer } = require("electron");
 contextBridge.exposeInMainWorld("api", {
   send: (channel, data) => {
     // whitelist channels
-    const validChannels = ["convertUrlsToQRs", "saveQRfile"];
+    const validChannels = [
+      "convertUrlsToQRs",
+      "saveQRfile",
+      "saveQRfilesFolder",
+    ];
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, data);
     }
   },
   receive: (channel, func) => {
-    const validChannels = ["qrData", "saveQRfile"];
+    const validChannels = ["qrData", "saveQRfile", "saveQRfilesFolder"];
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`
       ipcRenderer.on(channel, (event, ...args) => func(...args));

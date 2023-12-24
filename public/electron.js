@@ -31,7 +31,6 @@ function createWindow() {
 const historyDirName = `${app.getPath("appData")}/QRsHistory`;
 
 app.whenReady().then(() => {
-
   createWindow();
 
   if (!fs.existsSync(historyDirName)) {
@@ -104,6 +103,38 @@ ipcMain.on("saveQRfile", (event, fileData) => {
         fileData?.height
       ).then((data) => {
         fs.writeFileSync(filePath, data);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+ipcMain.on("saveQRfilesFolder", (event, files) => {
+  const options = {
+    title: "Save QR",
+    defaultPath: app.getPath("documents"),
+  };
+
+  dialog
+    .showSaveDialog(mainWindow, options)
+    .then(({ filePath: dir }) => {
+      if (!dir) return;
+
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+
+      files?.forEach((file) => {
+        const fileName = `${dir}/${file?.fileName}.${file?.extension}`;
+        imageConverter(
+          fs.readFileSync(file?.file),
+          file?.extension,
+          file?.width,
+          file?.height
+        ).then((data) => {
+          fs.writeFileSync(fileName, data);
+        });
       });
     })
     .catch((err) => {
