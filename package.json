@@ -1,8 +1,12 @@
 {
-  "description": "Just a simple app to copy and paste text",
+  "description": "QR Generator",
   "author": "Sitarass",
   "build": {
-    "appId": "1.0.0"
+    "asar": true,
+    "mac": {
+      "asarUnpack": "node_modules/**/*.node",
+      "icon": "public/logo512.png"
+    }
   },
   "main": "public/electron.js",
   "homepage": "./",
@@ -66,5 +70,6 @@
     "electron": "^15.1.1",
     "electron-builder": "^24.6.4",
     "wait-on": "^7.0.1"
-  }
+  },
+  "packageManager": "yarn@4.0.0"
 }
