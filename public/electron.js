@@ -1,13 +1,11 @@
 const isDev = require("electron-is-dev");
 const path = require("path");
 const fs = require("fs");
-const Store = require("electron-store");
 var QRCode = require("qrcode");
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 var { imageConverter } = require("./utils");
 
 let mainWindow;
-const store = new Store();
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -33,7 +31,6 @@ function createWindow() {
 const historyDirName = `${app.getPath("appData")}/QRsHistory`;
 
 app.whenReady().then(() => {
-  ipcMain.handle("storage", () => store.get("unicorn"));
 
   createWindow();
 
