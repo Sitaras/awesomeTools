@@ -1,10 +1,33 @@
 @use "sass:math";
 @use "../styles/utils" as *;
 
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+  flex: 1;
+}
+
 .urlsMultilineInput {
   flex: 1;
   height: 100%;
   width: 100%;
+}
+
+.inputButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: rem(16);
+  flex-wrap: wrap;
+}
+
+.saveAsTxtButton {
+  max-width: rem(256);
+  align-self: flex-end;
+}
+
+.clearButton {
+  max-width: rem(256);
 }
 
 .submitButton {
@@ -12,7 +35,7 @@
   align-self: center;
 }
 
-.container {
+.tableContainer {
   flex: 1;
   overflow: auto;
 

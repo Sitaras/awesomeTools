@@ -14,6 +14,8 @@ const QRGenerator = () => {
     register,
     handleSubmit,
     formState: { errors },
+    resetField,
+    getValues,
   } = useForm();
 
   window.api.receive("qrData", (data) => {
@@ -23,6 +25,7 @@ const QRGenerator = () => {
   const [qrData, setQrData] = useState();
 
   const displaySaveAsAllButton = qrData?.length > 1;
+  const displayInputsButtons = qrData?.length > 0;
 
   const handleUrlsSubmit = ({ URLs }) => {
     const urlsArray = [...new Set(URLs.split("\n"))];
@@ -33,23 +36,54 @@ const QRGenerator = () => {
     window.api.send("saveQRfilesFolder", qrData);
   };
 
+  const handleClear = () => {
+    resetField("URLs");
+    setQrData([]);
+  };
+
+  const handleSaveAsTxt = () => {
+    const urls = getValues("URLs");
+    window.api.send("saveAsTxt", urls);
+  };
+
   return (
     <QRGeneratorLayout>
-      <TextInput
-        register={register}
-        errors={errors}
-        className={styles.urlsMultilineInput}
-        label="URLs"
-        name="URLs"
-        multiline
-      />
+      <div className={styles.inputContainer}>
+        <TextInput
+          register={register}
+          errors={errors}
+          className={styles.urlsMultilineInput}
+          label="URLs"
+          name="URLs"
+          multiline
+        />
+        <div className={styles.inputButtonsContainer}>
+          {displayInputsButtons && (
+            <>
+              <SecondaryButton
+                onClick={handleClear}
+                className={styles.saveAsTxtButton}
+              >
+                Clear
+              </SecondaryButton>
+
+              <SecondaryButton
+                onClick={handleSaveAsTxt}
+                className={styles.saveAsTxtButton}
+              >
+                Save as txt
+              </SecondaryButton>
+            </>
+          )}
+        </div>
+      </div>
       <PrimaryButton
         onClick={handleSubmit(handleUrlsSubmit)}
         className={styles.submitButton}
       >
         Generate
       </PrimaryButton>
-      <div className={styles.container}>
+      <div className={styles.tableContainer}>
         <QRContentTable
           rows={qrData}
           handleRows={setQrData}

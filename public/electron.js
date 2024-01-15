@@ -47,6 +47,29 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
+ipcMain.on("saveAsTxt", (event, urlsData) => {
+  const options = {
+    title: "Save QR",
+    defaultPath: app.getPath("documents") + "/urls",
+    filters: [
+      {
+        name: "urls",
+        extensions: [".txt"],
+      },
+    ],
+  };
+
+  dialog
+    .showSaveDialog(mainWindow, options)
+    .then(({ filePath }) => {
+      if (!filePath) return;
+      fs.writeFileSync(filePath, urlsData);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 ipcMain.on("convertUrlsToQRs", (event, urlsArray) => {
   const dirName = Date.now() + "";
   const storagePath = `${historyDirName}/${dirName}`;

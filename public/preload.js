@@ -8,13 +8,19 @@ contextBridge.exposeInMainWorld("api", {
       "convertUrlsToQRs",
       "saveQRfile",
       "saveQRfilesFolder",
+      "saveAsTxt",
     ];
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, data);
     }
   },
   receive: (channel, func) => {
-    const validChannels = ["qrData", "saveQRfile", "saveQRfilesFolder"];
+    const validChannels = [
+      "qrData",
+      "saveQRfile",
+      "saveQRfilesFolder",
+      "saveAsTxt",
+    ];
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`
       ipcRenderer.on(channel, (event, ...args) => func(...args));
