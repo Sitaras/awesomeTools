@@ -44,7 +44,7 @@ app.whenReady().then(() => {
 
 app.on("window-all-closed", () => {
   fs.rmSync(historyDirName, { recursive: true, force: true });
-  if (process.platform !== "darwin") app.quit();
+  app.quit();
 });
 
 ipcMain.on("saveAsTxt", (event, urlsData) => {

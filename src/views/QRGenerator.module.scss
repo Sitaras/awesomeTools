@@ -19,6 +19,10 @@
   justify-content: space-between;
   gap: rem(16);
   flex-wrap: wrap;
+
+  &:empty {
+    display: none;
+  }
 }
 
 .saveAsTxtButton {

@@ -1,0 +1,15 @@
+@use "../../styles/utils" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: rem(4);
+  border-right: 1px solid $gray-medium;
+
+  flex: 0 0 rem(32);
+  padding: rem(24) 0;
+}
+
+.selected {
+  color: $primary !important;
+}
