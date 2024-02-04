@@ -2,7 +2,7 @@ import React from "react";
 
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import IconButton from "@mui/material/IconButton";
-import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+import AbcIcon from "@mui/icons-material/Abc";
 import SmartButtonIcon from "@mui/icons-material/SmartButton";
 import CompareIcon from "@mui/icons-material/Compare";
 import JavascriptIcon from "@mui/icons-material/Javascript";
@@ -43,7 +43,7 @@ const NavBar = () => {
         {({ isActive }) => (
           <Tooltip title="Lorem Ipsum Generator" placement="right">
             <IconButton aria-label="Lorem Ipsum Generator">
-              <LocalLibraryIcon className={isIconSelected(isActive)} />
+              <AbcIcon className={isIconSelected(isActive)} />
             </IconButton>
           </Tooltip>
         )}

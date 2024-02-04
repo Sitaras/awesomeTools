@@ -164,11 +164,8 @@ const QRContentTable = ({ rows, handleRows }) => {
                   </TableCell>
                 )}
                 <TableCell align="left">
-                  <IconButton aria-label="saveAs">
-                    <SaveAsIcon
-                      aria-label="saveAs"
-                      onClick={handleSaveAs(row)}
-                    />
+                  <IconButton aria-label="saveAs" onClick={handleSaveAs(row)}>
+                    <SaveAsIcon />
                   </IconButton>
                   <IconButton
                     aria-label="preview"
