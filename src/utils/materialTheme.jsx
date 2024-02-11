@@ -86,6 +86,20 @@ const theme = createTheme({
         },
       },
     },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: colors.secondary,
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: colors.action,
+        },
+      },
+    },
     MuiTableContainer: {
       styleOverrides: {
         root: {
@@ -103,6 +117,16 @@ const theme = createTheme({
           background: colors.bgColor,
           fontWeight: "bold",
           zIndex: 100,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&.Mui-disabled": {
+            color: colors.grayMedium,
+            borderColor: colors.grayMedium,
+          },
         },
       },
     },

@@ -23,7 +23,7 @@ const SecondaryButton = (props) => {
 
 const PrimaryButtonLoader = ({ loading, children, ...rest }) => {
   return (
-    <InnerLoader loading={loading} color="#00084e">
+    <InnerLoader loading={loading} color="#ffffff">
       <PrimaryButton {...rest}>{children}</PrimaryButton>
     </InnerLoader>
   );

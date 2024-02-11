@@ -1,8 +1,8 @@
-@use './utils' as *;
-@use 'sass:math';
-@use 'sass:color';
-@use '../styles/palette.scss' as p;
-@use '../styles/typography.scss' as *;
+@use "./utils" as *;
+@use "sass:math";
+@use "sass:color";
+@use "../styles/palette.scss" as p;
+@use "../styles/typography.scss" as *;
 
 html,
 body {
@@ -11,7 +11,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Roboto', sans-serif !important;
+  font-family: "Roboto", sans-serif !important;
 }
 
 p {
@@ -52,17 +52,13 @@ a {
 }
 
 br {
-  content: '';
+  content: "";
   display: block;
   margin: rem(8);
 }
 
 * {
   box-sizing: border-box;
-}
-
-.MuiButton-root {
-  height: 40px;
 }
 
 *::-webkit-scrollbar-track {

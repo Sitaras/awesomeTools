@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import QRGeneratorLayout from "containers/QRGeneratorLayout";
+import { useForm } from "react-hook-form";
+
+import ContentLayout from "containers/ContentLayout";
 import { TextInput } from "components/Inputs/TextInput";
 import { PrimaryButton } from "components/Buttons/Buttons";
-import { useForm } from "react-hook-form";
 import { tableDataTransformer } from "utils/stringUtils";
 import QRContentTable from "components/Table/QRContentTable";
 import { SecondaryButton } from "components/Buttons/Buttons";
@@ -47,7 +48,7 @@ const QRGenerator = () => {
   };
 
   return (
-    <QRGeneratorLayout>
+    <ContentLayout>
       <div className={styles.inputContainer}>
         <TextInput
           register={register}
@@ -58,23 +59,21 @@ const QRGenerator = () => {
           multiline
         />
         <div className={styles.inputButtonsContainer}>
-          {displayInputsButtons && (
-            <>
-              <SecondaryButton
-                onClick={handleClear}
-                className={styles.saveAsTxtButton}
-              >
-                Clear
-              </SecondaryButton>
+          <SecondaryButton
+            onClick={handleClear}
+            className={styles.saveAsTxtButton}
+            disabled={!displayInputsButtons}
+          >
+            Clear
+          </SecondaryButton>
 
-              <SecondaryButton
-                onClick={handleSaveAsTxt}
-                className={styles.saveAsTxtButton}
-              >
-                Save as txt
-              </SecondaryButton>
-            </>
-          )}
+          <SecondaryButton
+            onClick={handleSaveAsTxt}
+            className={styles.saveAsTxtButton}
+            disabled={!displayInputsButtons}
+          >
+            Save as txt
+          </SecondaryButton>
         </div>
       </div>
       <PrimaryButton
@@ -98,7 +97,7 @@ const QRGenerator = () => {
           </SecondaryButton>
         )}
       </div>
-    </QRGeneratorLayout>
+    </ContentLayout>
   );
 };
 

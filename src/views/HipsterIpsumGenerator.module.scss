@@ -1,0 +1,49 @@
+@use "../styles/utils" as *;
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: rem(24);
+  max-width: rem(360);
+}
+
+.header {
+  @include text($white, $font-size-l, $line-height-l, $font-regular);
+}
+
+.ctaContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: rem(24);
+}
+
+.textContainer {
+  position: relative;
+
+  flex: 1;
+  overflow: auto;
+  border: 1px solid $primary;
+  padding: rem(16);
+  p {
+    white-space: pre-line;
+
+    @include text($white, $font-size-m, $line-height-m, $font-regular);
+  }
+}
+
+.copyButton {
+  position: sticky !important;
+  left: 100%;
+  bottom: 1%;
+  padding: 0;
+  background-color: $secondary !important;
+  opacity: 0.8;
+  &:hover {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+  }
+}
+
+.snackbar > * {
+  background-color: $success !important;
+}

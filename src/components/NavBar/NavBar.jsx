@@ -14,7 +14,7 @@ import styles from "./NavBar.module.scss";
 const NavBar = () => {
   const routesLinks = {
     fakeDataGenerator: "/fake-data-generator",
-    loremIpsumGenerator: "/lorem-ipsum-generator",
+    hipsterIpsumGenerator: "/hipster-ipsum-generator",
     qrGenerator: "/qr-generator",
     diffChecker: "/diff-checker",
     jsCompiler: "/js-compiler",
@@ -37,7 +37,7 @@ const NavBar = () => {
         )}
       </NavLink>
       <NavLink
-        to={routesLinks.loremIpsumGenerator}
+        to={routesLinks.hipsterIpsumGenerator}
         aria-label={"Lorem Ipsum Generator"}
       >
         {({ isActive }) => (

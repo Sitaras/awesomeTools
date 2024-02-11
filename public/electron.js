@@ -47,13 +47,13 @@ app.on("window-all-closed", () => {
   app.quit();
 });
 
-ipcMain.on("saveAsTxt", (event, urlsData) => {
+ipcMain.on("saveAsTxt", (event, data) => {
   const options = {
     title: "Save QR",
-    defaultPath: app.getPath("documents") + "/urls",
+    defaultPath: app.getPath("documents") + "/data",
     filters: [
       {
-        name: "urls",
+        name: "data",
         extensions: [".txt"],
       },
     ],
@@ -63,7 +63,7 @@ ipcMain.on("saveAsTxt", (event, urlsData) => {
     .showSaveDialog(mainWindow, options)
     .then(({ filePath }) => {
       if (!filePath) return;
-      fs.writeFileSync(filePath, urlsData);
+      fs.writeFileSync(filePath, data);
     })
     .catch((err) => {
       console.log(err);
