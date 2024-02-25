@@ -13,3 +13,8 @@
 
 ### Hipster-Ipsum generator
 ![image](https://github.com/Sitaras/awesomeTools/assets/45051550/6addca7b-114a-43ef-83f4-ab1065c2917c)
+
+### Diff Checker
+![image](https://github.com/Sitaras/awesomeTools/assets/45051550/8c7c73b8-27da-40af-ac30-09eb2cf3a1da)
+
+
