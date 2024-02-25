@@ -4803,6 +4803,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^5.17.0"
     concurrently: "npm:^8.2.2"
     cross-env: "npm:^7.0.3"
+    diff: "npm:^5.2.0"
     electron: "npm:^28.1.4"
     electron-builder: "npm:24.9.1"
     electron-is-dev: "npm:^2.0.0"
@@ -6471,6 +6472,13 @@ __metadata:
   version: 29.6.3
   resolution: "diff-sequences@npm:29.6.3"
   checksum: 32e27ac7dbffdf2fb0eb5a84efd98a9ad084fbabd5ac9abb8757c6770d5320d2acd172830b28c4add29bb873d59420601dfc805ac4064330ce59b1adfd0593b2
+  languageName: node
+  linkType: hard
+
+"diff@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "diff@npm:5.2.0"
+  checksum: aed0941f206fe261ecb258dc8d0ceea8abbde3ace5827518ff8d302f0fc9cc81ce116c4d8f379151171336caf0516b79e01abdc1ed1201b6440d895a66689eb4
   languageName: node
   linkType: hard
 

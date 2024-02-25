@@ -2,7 +2,7 @@ const isDev = require("electron-is-dev");
 const path = require("path");
 const fs = require("fs");
 var QRCode = require("qrcode");
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require("electron");
 var { imageConverter } = require("./utils");
 
 let mainWindow;
@@ -164,3 +164,22 @@ ipcMain.on("saveQRfilesFolder", (event, files) => {
       console.log(err);
     });
 });
+
+if (!isDev) {
+  const menu = Menu.buildFromTemplate([
+    { role: "appMenu" },
+    { role: "editMenu" },
+    {
+      label: "View",
+      submenu: [
+        { role: "resetZoom" },
+        { role: "zoomIn" },
+        { role: "zoomOut" },
+        { type: "separator" },
+        { role: "togglefullscreen" },
+      ],
+    },
+    { role: "windowMenu" },
+  ]);
+  Menu.setApplicationMenu(menu);
+}

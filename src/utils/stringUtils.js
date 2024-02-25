@@ -1,5 +1,3 @@
-const stripLeadingZeros = (str) => str.replace(new RegExp("^0+(?!$)", "g"), "");
-
 const replaceAll = (text, value = "", replaceValue = "") => {
   return text ? text.split(value).join(replaceValue) : text;
 };
@@ -19,4 +17,23 @@ const tableDataTransformer = (data) => {
   }));
 };
 
-export { replaceAll, isEmptyString, stripLeadingZeros, tableDataTransformer };
+const convertToLowerCase = (text) => {
+  return text?.toLowerCase();
+};
+
+const replaceNewLineWithWhiteSpace = (text) => {
+  return replaceAll(text, "\n", " ");
+};
+
+const trim = (text) => {
+  return text?.trim();
+}
+
+export {
+  replaceAll,
+  isEmptyString,
+  tableDataTransformer,
+  convertToLowerCase,
+  replaceNewLineWithWhiteSpace,
+  trim,
+};

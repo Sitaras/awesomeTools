@@ -1,5 +1,8 @@
 import QRGenerator from "views/QRGenerator";
 import HipsterIpsumGenerator from "views/HipsterIpsumGenerator";
+import DiffChecker from "views/DiffChecker";
+
+import { routesPaths } from "./routePaths";
 
 const routes = [
   {
@@ -7,12 +10,16 @@ const routes = [
     element: <QRGenerator />,
   },
   {
-    path: "/qr-generator",
+    path: routesPaths.qrGenerator,
     element: <QRGenerator />,
   },
   {
-    path: "/hipster-ipsum-generator",
+    path: routesPaths.hipsterIpsumGenerator,
     element: <HipsterIpsumGenerator />,
+  },
+  {
+    path: routesPaths.diffChecker,
+    element: <DiffChecker />,
   },
 ];
 

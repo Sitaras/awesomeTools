@@ -8,24 +8,17 @@ import CompareIcon from "@mui/icons-material/Compare";
 import JavascriptIcon from "@mui/icons-material/Javascript";
 import Tooltip from "@mui/material/Tooltip";
 import { NavLink } from "react-router-dom";
+import { routesPaths } from "utils/routePaths";
 
 import styles from "./NavBar.module.scss";
 
 const NavBar = () => {
-  const routesLinks = {
-    fakeDataGenerator: "/fake-data-generator",
-    hipsterIpsumGenerator: "/hipster-ipsum-generator",
-    qrGenerator: "/qr-generator",
-    diffChecker: "/diff-checker",
-    jsCompiler: "/js-compiler",
-  };
-
   const isIconSelected = (isActive) => (isActive ? styles.selected : "");
 
   return (
     <nav className={styles.container}>
       <NavLink
-        to={routesLinks.fakeDataGenerator}
+        to={routesPaths.fakeDataGenerator}
         aria-label="Fake Data Generator"
       >
         {({ isActive }) => (
@@ -37,7 +30,7 @@ const NavBar = () => {
         )}
       </NavLink>
       <NavLink
-        to={routesLinks.hipsterIpsumGenerator}
+        to={routesPaths.hipsterIpsumGenerator}
         aria-label={"Lorem Ipsum Generator"}
       >
         {({ isActive }) => (
@@ -48,7 +41,7 @@ const NavBar = () => {
           </Tooltip>
         )}
       </NavLink>
-      <NavLink to={routesLinks.qrGenerator} aria-label="QR Generator">
+      <NavLink to={routesPaths.qrGenerator} aria-label="QR Generator">
         {({ isActive }) => (
           <Tooltip title="QR Generator" placement="right">
             <IconButton aria-label="QR Generator">
@@ -57,7 +50,7 @@ const NavBar = () => {
           </Tooltip>
         )}
       </NavLink>
-      <NavLink to={routesLinks.diffChecker} aria-label="Diff Checker">
+      <NavLink to={routesPaths.diffChecker} aria-label="Diff Checker">
         {({ isActive }) => (
           <Tooltip title="Diff Checker" placement="right">
             <IconButton aria-label="Diff Checker">
@@ -66,7 +59,7 @@ const NavBar = () => {
           </Tooltip>
         )}
       </NavLink>
-      <NavLink to={routesLinks.jsCompiler} aria-label="JS Compiler">
+      <NavLink to={routesPaths.jsCompiler} aria-label="JS Compiler">
         {({ isActive }) => (
           <Tooltip title="JS Compiler" placement="right">
             <IconButton aria-label="JS Compiler">

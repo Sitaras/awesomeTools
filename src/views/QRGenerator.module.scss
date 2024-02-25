@@ -11,6 +11,15 @@
   flex: 1;
   height: 100%;
   width: 100%;
+  & > div {
+    position: relative;
+  }
+
+  & > div > textarea {
+    position: absolute;
+    max-height: 95%;
+    max-width: 95%;
+  }
 }
 
 .inputButtonsContainer {

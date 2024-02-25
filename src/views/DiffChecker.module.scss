@@ -1,0 +1,70 @@
+@use "../styles/utils" as *;
+
+.content {
+  @include desktop-up {
+    flex-direction: column;
+  }
+  gap: rem(16);
+}
+
+.inputsContainer {
+  display: flex;
+  flex: 1;
+  gap: rem(8);
+}
+
+.multilineInput {
+  flex: 1;
+  height: 100%;
+  & > div {
+    position: relative;
+  }
+
+  & > div > textarea {
+    position: absolute;
+    max-height: 93%;
+    max-width: 95%;
+  }
+}
+
+.differenceBlock {
+  flex: 1;
+  height: 100%;
+  overflow: auto;
+
+  border: rem(1) solid $action;
+  border-radius: rem(4);
+  padding: rem(16.5) rem(14);
+}
+
+.differenceBlock-content {
+  height: 100%;
+
+  overflow: auto;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.added {
+  @include text($primary, $font-size-m, $line-height-m, $font-regular);
+}
+
+.removed {
+  @include text($secondary, $font-size-m, $line-height-m, $font-regular);
+}
+
+.equal {
+  @include text($action, $font-size-m, $line-height-m, $font-regular);
+}
+
+.comparisonPlaceholder {
+  @include text($action, $font-size-m, $line-height-m, $font-regular);
+  opacity: 0.6;
+}
+
+.ctasContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: rem(24);
+  flex-wrap: wrap;
+}
