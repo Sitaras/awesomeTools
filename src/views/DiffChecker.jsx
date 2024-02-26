@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import useMediaQuery from "@mui/material/useMediaQuery";
 import ContentLayout from "containers/ContentLayout";
+import SplitButton from "components/Buttons/SplitButton";
 import { TextInput } from "components/Inputs/TextInput";
 import { StandardDropDown } from "components/DropDown/DropDowns";
 import { diffChars, diffWords, diffCss, diffJson } from "diff";
-import SplitButton from "components/Buttons/SplitButton";
 import {
   convertToLowerCase,
   replaceNewLineWithWhiteSpace,
@@ -21,6 +22,10 @@ const DiffChecker = () => {
     watch,
     setValue,
   } = useForm();
+
+  const phoneUp = useMediaQuery("(min-height:760px)");
+
+  const maxRows = phoneUp ? 20 : 10;
 
   const [selectedComparisonFunction, setSelectedComparisonFunction] =
     useState("diffJson");
@@ -113,7 +118,7 @@ const DiffChecker = () => {
           label="Original text"
           name="originalText"
           multiline
-          rows={20}
+          rows={maxRows}
         />
         <TextInput
           register={register}
@@ -122,7 +127,7 @@ const DiffChecker = () => {
           label="Changed text"
           name="changedText"
           multiline
-          rows={20}
+          rows={maxRows}
         />
       </div>
       <div className={styles.differenceBlock}>
