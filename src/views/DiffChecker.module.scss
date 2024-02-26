@@ -15,19 +15,6 @@
 
 .multilineInput {
   flex: 1;
-  height: 100%;
-  & > div {
-    position: relative;
-  }
-
-  & > div > textarea {
-    position: absolute;
-    max-height: 90%;
-    max-width: 95%;
-    @include desktop-up {
-      max-height: 93%;
-    }
-  }
 }
 
 .differenceBlock {

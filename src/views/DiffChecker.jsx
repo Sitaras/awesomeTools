@@ -113,6 +113,7 @@ const DiffChecker = () => {
           label="Original text"
           name="originalText"
           multiline
+          rows={20}
         />
         <TextInput
           register={register}
@@ -121,6 +122,7 @@ const DiffChecker = () => {
           label="Changed text"
           name="changedText"
           multiline
+          rows={20}
         />
       </div>
       <div className={styles.differenceBlock}>
