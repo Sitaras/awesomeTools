@@ -22,8 +22,11 @@
 
   & > div > textarea {
     position: absolute;
-    max-height: 93%;
+    max-height: 90%;
     max-width: 95%;
+    @include desktop-up {
+      max-height: 93%;
+    }
   }
 }
 
