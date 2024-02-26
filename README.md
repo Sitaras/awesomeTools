@@ -15,7 +15,8 @@
 ![image](https://github.com/Sitaras/awesomeTools/assets/45051550/6addca7b-114a-43ef-83f4-ab1065c2917c)
 
 ### Diff Checker
-![image](https://github.com/Sitaras/awesomeTools/assets/45051550/94afa55d-97cd-4904-bcd9-a0764b829257)
+![image](https://github.com/Sitaras/awesomeTools/assets/45051550/2c81d363-f31b-4ed0-90c4-1ec7f766bda5)
+
 
 
 
